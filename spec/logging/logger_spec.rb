@@ -33,12 +33,12 @@ describe DogCollar::Logging::Logger do
     context 'when a block is provided' do
       it 'forwards the return value as the log message' do
         expect(formatter).to receive(:call).with(severity, time, progname, msg, meta)
-        logger.add(severity, **meta) { msg }
+        logger.add(severity, nil, progname, **meta) { msg }
       end
 
       it 'allows the user to modify the metadata inside the block' do
         expect(formatter).to receive(:call).with(severity, time, progname, msg, **meta, d: 4)
-        logger.add(severity, **meta) do |meta|
+        logger.add(severity, nil, progname, **meta) do |meta|
           meta[:d] = 4
           msg
         end
